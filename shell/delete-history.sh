@@ -2,5 +2,5 @@
 
 function delete-history() {
 	history -c
-	echo "" > /home/lex-linux/.bash_history
+	echo "" > ~/.bash_history
 }

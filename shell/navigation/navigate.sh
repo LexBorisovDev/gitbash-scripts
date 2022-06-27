@@ -9,7 +9,7 @@ navigate() {
 		local currentDir=$(pwd)
 
 		if [[ $1 =~ $directoryPattern ]]; then
-			cd $1
+			cd "$1"
 			shift
 
 			valid=1
@@ -17,7 +17,7 @@ navigate() {
 			for arg in $@; do
 				if [ $valid -eq 1 ]; then
 					if [[ $arg =~ $directoryPattern ]]; then
-						cd $arg
+						cd "$arg"
 					else
 						directories=$(ls -d *)
 						keepGoing=1
@@ -26,22 +26,22 @@ navigate() {
 						for dir in $directories; do
 							if [ $keepGoing -eq 1 ]; then
 								if [[ $arg =~ $singleLetter ]]; then
-									if [[ $dir =~ ^$arg ]]; then
-										cd ./$dir
+									if [[ ${dir,,} =~ ^${arg,,} ]]; then
+										cd "./$dir"
 										keepGoing=0
 										foundDir=1
 									fi
 								else
-									if [[ $dir =~ $arg$ ]]; then
-										cd ./$dir
+									if [[ ${dir,,} =~ ${arg,,}$ ]]; then
+										cd "./$dir"
 										keepGoing=0
 										foundDir=1
-									elif [[ $dir =~ ^$arg ]]; then
-										cd ./$dir
+									elif [[ ${dir,,} =~ ^${arg,,} ]]; then
+										cd "./$dir"
 										keepGoing=0
 										foundDir=1
-									elif [[ $dir =~ .+$arg.+ ]]; then
-										cd ./$dir
+									elif [[ ${dir,,} =~ .+${arg,,}.+ ]]; then
+										cd "./$dir"
 										keepGoing=0
 										foundDir=1
 									fi

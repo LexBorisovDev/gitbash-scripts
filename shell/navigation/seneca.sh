@@ -1,6 +1,5 @@
 #!/bin/bash
 
 seneca() {
-	local initial=/c/Users/User/seneca
-	navigate $initial $@
+	navigate '/c/Users/User/seneca' $@
 }
